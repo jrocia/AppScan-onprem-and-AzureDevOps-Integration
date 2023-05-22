@@ -23,21 +23,20 @@ if ($env:compiledArtifactFolder -ne "none"){
     write-host "There is no compiled files compressed."
   }
   write-output "login_file $env:aseHostname `"$env:aseToken`" -acceptssl" > script.scan
-  write-output "of `"$CI_PROJECT_DIR\$env:compiledArtifactFolder`"" >> script.scan
-  write-output "sc `"$env:aseAppName-$CI_JOB_ID.ozasmt`" -scanconfig `"$env:scanConfig`" -name `"$env:aseAppName-$CI_JOB_ID`"" >> script.scan
-  write-output "report Findings pdf-detailed `"$env:aseAppName-$CI_JOB_ID.pdf`" `"$env:aseAppName-$CI_JOB_ID.ozasmt`" -includeSrcBefore:5 -includeSrcAfter:5 -includeTrace:definitive -includeTrace:suspect -includeHowToFix" >> script.scan
-  write-output "pa `"$env:aseAppName-$CI_JOB_ID.ozasmt`"" >> script.scan
+  write-output "of `"$(Build.ArtifactStagingDirectory)\$env:compiledArtifactFolder`"" >> script.scan
+  write-output "sc `"$env:aseAppName-$(Build.BuildNumber).ozasmt`" -scanconfig `"$env:scanConfig`" -name `"$env:aseAppName-$(Build.BuildNumber)`"" >> script.scan
+  write-output "report Findings pdf-detailed `"$env:aseAppName-$(Build.BuildNumber).pdf`" `"$env:aseAppName-$(Build.BuildNumber).ozasmt`" -includeSrcBefore:5 -includeSrcAfter:5 -includeTrace:definitive -includeTrace:suspect -includeHowToFix" >> script.scan
+  write-output "pa `"$env:aseAppName-$(Build.BuildNumber).ozasmt`"" >> script.scan
   write-output "exit" >> script.scan
   
-  write-host "Config file created for compiled folder ($CI_PROJECT_DIR\$env:compiledArtifactFolder)."
+  write-host "Config file created for compiled folder ($(Build.ArtifactStagingDirectory)\$env:compiledArtifactFolder)."
 }
 else{
   write-output "login_file $env:aseHostname `"$env:aseToken`" -acceptssl" > script.scan
-  write-output "RUNAS AUTO" >> script.scan
-  write-output "of `"$CI_PROJECT_DIR`"" >> script.scan
-  write-output "sc `"$env:aseAppName-$CI_JOB_ID.ozasmt`" -scanconfig `"$env:scanConfig`" -name `"$env:aseAppName-$CI_JOB_ID`" -sourcecodeonly true" >> script.scan
-  write-output "report Findings pdf-detailed `"$env:aseAppName-$CI_JOB_ID.pdf`" `"$env:aseAppName-$CI_JOB_ID.ozasmt`" -includeSrcBefore:5 -includeSrcAfter:5 -includeTrace:definitive -includeTrace:suspect -includeHowToFix" >> script.scan
-  write-output "pa `"$env:aseAppName-$CI_JOB_ID.ozasmt`"" >> script.scan
+  write-output "of `"$(Build.ArtifactStagingDirectory)`"" >> script.scan
+  write-output "sc `"$env:aseAppName-$(Build.BuildNumber).ozasmt`" -scanconfig `"$env:scanConfig`" -name `"$env:aseAppName-$(Build.BuildNumber)`" -sourcecodeonly true" >> script.scan
+  write-output "report Findings pdf-detailed `"$env:aseAppName-$(Build.BuildNumber).pdf`" `"$env:aseAppName-$(Build.BuildNumber).ozasmt`" -includeSrcBefore:5 -includeSrcAfter:5 -includeTrace:definitive -includeTrace:suspect -includeHowToFix" >> script.scan
+  write-output "pa `"$env:aseAppName-$(Build.BuildNumber).ozasmt`"" >> script.scan
   write-output "exit" >> script.scan
   
   write-host "Config file created (source code only scan)."
