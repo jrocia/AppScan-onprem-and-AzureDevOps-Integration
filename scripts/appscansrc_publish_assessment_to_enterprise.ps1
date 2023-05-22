@@ -21,6 +21,6 @@ write-output "exit" >> scriptpase.scan
 # Executing the script
 AppScanSrcCli scr scriptpase.scan
 # Getting and writing the scanName in a file
-$scanName=$env:aseAppName`-$env:BuildNumber
+$scanName=$env:aseAppName-$env:BuildNumber
 write-output $scanName > scanName_var.txt
 write-host "The scan $scanName was published in app $env:aseAppName in ASE"
