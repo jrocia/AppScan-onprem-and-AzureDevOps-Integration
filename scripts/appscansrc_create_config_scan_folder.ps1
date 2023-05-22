@@ -29,7 +29,7 @@ if ($env:compiledArtifactFolder -ne "none"){
   write-output "pa `"$env:aseAppName-$env:BuildNumber.ozasmt`"" >> script.scan
   write-output "exit" >> script.scan
   
-  write-host "Config file created for compiled folder "$env:WorkingDirectory\$env:compiledArtifactFolder."
+  write-host "Config file created for compiled folder $env:WorkingDirectory\$env:compiledArtifactFolder."
 }
 else{
   write-output "login_file $env:aseHostname `"$env:aseToken`" -acceptssl" > script.scan
