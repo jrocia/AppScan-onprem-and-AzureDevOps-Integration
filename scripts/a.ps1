@@ -1,3 +1,3 @@
-write-host "($(Build.ArtifactStagingDirectory)\$env:compiledArtifactFolder)."
-write-host "($Build.ArtifactStagingDirectory\$env:compiledArtifactFolder)."
-write-host "($env:Build.ArtifactStagingDirectory"
+write-host "$(System.DefaultWorkingDirectory)"
+write-host "$System.DefaultWorkingDirectory"
+write-host "$env:System.DefaultWorkingDirectory"
