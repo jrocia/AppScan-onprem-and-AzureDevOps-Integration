@@ -28,5 +28,5 @@ if ([string]::IsNullOrWhitespace($aseAppId)){
 	write-host "Application $env:aseAppName registered with id $aseAppId"
     }
 else{
-	write-host "There is a registered application."
+	write-host "There is a registered application. Application $env:aseAppName id $aseAppId"
 	}
