@@ -22,21 +22,21 @@ write-host "======== Step: Checking Security Gate ========"
 $maxIssuesAllowed = $maxIssuesAllowed -as [int]
 
 write-host "There is $highIssues high issues, $mediumIssues medium issues and $lowIssues low issues."
-write-host "The company policy permit less than $maxIssuesAllowed $sevSecGw severity."
+write-host "The company policy permit less than $env:maxIssuesAllowed $env:sevSecGw severity."
 
-if (( $highIssues -gt $maxIssuesAllowed ) -and ( "$sevSecGw" -eq "highIssues" )) {
+if (( $highIssues -gt $env:maxIssuesAllowed ) -and ( "$env:sevSecGw" -eq "highIssues" )) {
   write-host "Security Gate build failed";
   exit 1
   }
-elseif (( $mediumIssues -gt $maxIssuesAllowed ) -and ( "$sevSecGw" -eq "mediumIssues" )) {
+elseif (( $mediumIssues -gt $env:maxIssuesAllowed ) -and ( "$env:sevSecGw" -eq "mediumIssues" )) {
   write-host "Security Gate build failed";
   exit 1
   }
-elseif (( $lowIssues -gt $maxIssuesAllowed ) -and ( "$sevSecGw" -eq "lowIssues" )) {
+elseif (( $lowIssues -gt $env:maxIssuesAllowed ) -and ( "$env:sevSecGw" -eq "lowIssues" )) {
   write-host "Security Gate build failed";
   exit 1
   }
-elseif (( $totalIssues -gt $maxIssuesAllowed ) -and ( "$sevSecGw" -eq "totalIssues" )) {
+elseif (( $totalIssues -gt $env:maxIssuesAllowed ) -and ( "$env:sevSecGw" -eq "totalIssues" )) {
   write-host "Security Gate build failed";
   exit 1
   }
