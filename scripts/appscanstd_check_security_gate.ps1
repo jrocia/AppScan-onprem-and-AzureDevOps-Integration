@@ -23,7 +23,7 @@ write-host "======== Step: Checking Security Gate ========"
 [int]$totalIssues = $xml.XmlReport.Summary.Hosts.Host.Total
 $maxIssuesAllowed = $maxIssuesAllowed -as [int]
 
-write-host "There is $criticalIssues critical issues, $highIssues high issues, $mediumIssues medium issues, $lowIssues low issues and $infoIssues informational issues."
+write-host "There are $criticalIssues critical issues, $highIssues high issues, $mediumIssues medium issues, $lowIssues low issues and $infoIssues informational issues."
 write-host "The company policy permit less than $env:maxIssuesAllowed $env:sevSecGw severity."
 
 if (( $criticalIssues -gt $env:maxIssuesAllowed ) -and ( "$env:sevSecGw" -eq "criticalIssues" )) {
