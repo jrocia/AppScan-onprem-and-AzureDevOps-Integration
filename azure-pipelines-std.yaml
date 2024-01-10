@@ -1,15 +1,12 @@
 variables:
-  aseApiKeyId: xxxxxxxxxxxxxxxx
-  aseApiKeySecret: xxxxxxxxxxxxxxxx
-  compiledArtifactFolder: none
-  scanConfig: Normal scan
-  aseAppName: $(Build.Repository.Name)
-  aseHostname: xxxxxxxxxxxxxxxx
-  aseToken: C:\ProgramData\HCL\AppScanSource\config\ounceautod.token
+  url: https://www.abcd.com
+  scanFile: $(System.DefaultWorkingDirectory)\$(Build.Repository.Name)-$(Build.BuildNumber).scan
+  reportXMLsevSec: $(System.DefaultWorkingDirectory)\$(Build.Repository.Name)-$(Build.BuildNumber)-sevsec.xml
+  reportPDFFile: $(System.DefaultWorkingDirectory)\$(Build.Repository.Name)-$(Build.BuildNumber).pdf
+  loginDastConfig: $(System.DefaultWorkingDirectory)\dast.login
+  manualExploreDastConfig: $(System.DefaultWorkingDirectory)\manualexplore.exd
   sevSecGw: highIssues
-  maxIssuesAllowed: 100
-  WorkingDirectory: $(System.DefaultWorkingDirectory)
-  BuildNumber: $(Build.BuildNumber)
+  maxIssuesAllowed: 10
 
 trigger: none
 
