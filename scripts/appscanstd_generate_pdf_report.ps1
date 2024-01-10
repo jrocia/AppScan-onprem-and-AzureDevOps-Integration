@@ -14,5 +14,5 @@
 
 write-host "======== Step: Generating PDF Report ========"
 # Executing AppScan Standard to generate a PDF report based in a Scan File (.scan)
-AppScanCMD.exe /r /b $scanFile /rt pdf /rf $reportPDFFile | out-null
-write-host "Report file $reportPDFFile generated."
+AppScanCMD.exe /r /b $env:scanFile /rt pdf /rf $env:reportPDFFile | out-null
+write-host "Report file $env:reportPDFFile generated."
