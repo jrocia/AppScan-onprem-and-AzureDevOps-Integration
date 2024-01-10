@@ -15,6 +15,7 @@
 write-host "======== Step: Checking Security Gate ========"
 # Loading XML file into a variable and get amount of issues
 [XML]$xml = Get-Content *-sevsec.xml
+[int]$criticalIssues = $xml.XmlReport.Summary.Hosts.Host.TotalCriticalSeverityIssues
 [int]$highIssues = $xml.XmlReport.Summary.Hosts.Host.TotalHighSeverityIssues
 [int]$mediumIssues = $xml.XmlReport.Summary.Hosts.Host.TotalMediumSeverityIssues
 [int]$lowIssues = $xml.XmlReport.Summary.Hosts.Host.TotalLowSeverityIssues
@@ -22,10 +23,14 @@ write-host "======== Step: Checking Security Gate ========"
 [int]$totalIssues = $xml.XmlReport.Summary.Hosts.Host.Total
 $maxIssuesAllowed = $maxIssuesAllowed -as [int]
 
-write-host "There is $highIssues high issues, $mediumIssues medium issues, $lowIssues low issues and $infoIssues informational issues."
+write-host "There is $criticalIssues critical issues, $highIssues high issues, $mediumIssues medium issues, $lowIssues low issues and $infoIssues informational issues."
 write-host "The company policy permit less than $env:maxIssuesAllowed $env:sevSecGw severity."
 
-if (( $highIssues -gt $env:maxIssuesAllowed ) -and ( "$env:sevSecGw" -eq "highIssues" )) {
+if (( $criticalIssues -gt $env:maxIssuesAllowed ) -and ( "$env:sevSecGw" -eq "criticalIssues" )) {
+  write-host "Security Gate build failed";
+  exit 1
+  }
+elseif (( $highIssues -gt $env:maxIssuesAllowed ) -and ( "$env:sevSecGw" -eq "highIssues" )) {
   write-host "Security Gate build failed";
   exit 1
   }
