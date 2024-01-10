@@ -14,20 +14,20 @@
 
 write-host "======== Step: Running scan in $url ========"
 # Checking if there is Manual explorer file and/or Login process file and running AppScan Stardard scan 
-if ((Test-Path -Path $manualExploreDastConfig -PathType Leaf) -and (Test-Path -Path $loginDastConfig -PathType Leaf)){
+if ((Test-Path -Path $env:manualExploreDastConfig -PathType Leaf) -and (Test-Path -Path $env:loginDastConfig -PathType Leaf)){
   write-host "Manual explorer and login file were found in repository folder. It will be used in scanning process."
-  AppScanCMD.exe /su $url /d $scanFile /rt xml /rf $reportXMLsevSec /mef $manualExploreDastConfig /to /lf $loginDastConfig
+  AppScanCMD.exe /su $env:url /d $env:scanFile /rt xml /rf $env:reportXMLsevSec /mef $env:manualExploreDastConfig /to /lf $env:loginDastConfig
   }
-elseif ((Test-Path -Path $manualExploreDastConfig -PathType Leaf)){
+elseif ((Test-Path -Path $env:manualExploreDastConfig -PathType Leaf)){
   write-host "Manual explorer file was found in repository folder. It will be used in scanning process."
-  AppScanCMD.exe /su $url /d $scanFile /rt xml /rf $reportXMLsevSec /mef $manualExploreDastConfig /to
+  AppScanCMD.exe /su $env:url /d $env:scanFile /rt xml /rf $env:reportXMLsevSec /mef $env:manualExploreDastConfig /to
   }
-elseif ((Test-Path -Path $loginDastConfig -PathType Leaf)){
+elseif ((Test-Path -Path $env:loginDastConfig -PathType Leaf)){
   write-host "Login file was found in repository folder. It will be used in scanning process."
-  AppScanCMD.exe /su $url /d $scanFile /rt xml /rf $reportXMLsevSec /lf $loginDastConfig
+  AppScanCMD.exe /su $env:url /d $env:scanFile /rt xml /rf $env:reportXMLsevSec /lf $env:loginDastConfig
   }
 else{
   write-host "There is no Login or Manual Explorer file in repository folder."
-  AppScanCMD.exe /su $url /d $scanFile /rt xml /rf $reportXMLsevSec
+  AppScanCMD.exe /su $env:url /d $env:scanFile /rt xml /rf $env:reportXMLsevSec
   }
-write-host "Scan on $url finished."
+write-host "Scan on $env:url finished."
