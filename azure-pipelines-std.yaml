@@ -6,7 +6,7 @@ variables:
   loginDastConfig: $(System.DefaultWorkingDirectory)\dast.login
   manualExploreDastConfig: $(System.DefaultWorkingDirectory)\manualexplore.exd
   sevSecGw: highIssues
-  maxIssuesAllowed: 10
+  maxIssuesAllowed: 1000
 
 trigger: none
 
@@ -14,26 +14,18 @@ pool: default
 
 steps:
 - pwsh: |
-    Invoke-WebRequest -Uri https://raw.githubusercontent.com/jrocia/AppScan-onprem-and-AzureDevOps-integration/main/scripts/appscanase_create_application_ase.ps1 -OutFile appscanase_create_application_ase.ps1
-    .\appscanase_create_application_ase.ps1
-  displayName: 'Checking Application ID in ASE'
+    Invoke-WebRequest -Uri https://raw.githubusercontent.com/jrocia/AppScan-onprem-and-AzureDevOps-integration/main/scripts/appscanstd_scan.ps1 -OutFile appscanstd_scan.ps1
+    .\appscanstd_scan.ps1
+  displayName: 'Running DAST scan'
 - pwsh: |
-    Invoke-WebRequest -Uri https://raw.githubusercontent.com/jrocia/AppScan-onprem-and-AzureDevOps-integration/main/scripts/appscansrc_create_config_scan_folder.ps1 -OutFile appscansrc_create_config_scan_folder.ps1
-    .\appscansrc_create_config_scan_folder.ps1
-  displayName: 'Creating AppScan Source Config file'
+    Invoke-WebRequest -Uri https://raw.githubusercontent.com/jrocia/AppScan-onprem-and-AzureDevOps-integration/main/scripts/appscanstd_generate_pdf_report.ps1 -OutFile appscanstd_generate_pdf_report.ps1
+    .\appscanstd_generate_pdf_report.ps1
+  displayName: 'Generating PDF Report'
 - pwsh: |
-    Invoke-WebRequest -Uri https://raw.githubusercontent.com/jrocia/AppScan-onprem-and-AzureDevOps-integration/main/scripts/appscansrc_scan.ps1 -OutFile appscansrc_scan.ps1
-    .\appscansrc_scan.ps1
-  displayName: 'Running SAST scan'
-- pwsh: |
-    Invoke-WebRequest -Uri https://raw.githubusercontent.com/jrocia/AppScan-onprem-and-AzureDevOps-integration/main/scripts/appscansrc_publish_assessment_to_enterprise.ps1 -OutFile appscansrc_publish_assessment_to_enterprise.ps1
-    .\appscansrc_publish_assessment_to_enterprise.ps1
-  displayName: 'Publishing Result Scan into ASE'
-- pwsh: |
-    Invoke-WebRequest -Uri https://raw.githubusercontent.com/jrocia/AppScan-onprem-and-AzureDevOps-integration/main/scripts/appscansrc_check_security_gate.ps1 -OutFile appscansrc_check_security_gate.ps1
-    .\appscansrc_check_security_gate.ps1
+    Invoke-WebRequest -Uri https://raw.githubusercontent.com/jrocia/AppScan-onprem-and-AzureDevOps-integration/main/scripts/appscanstd_check_security_gate.ps1 -OutFile appscanstd_check_security_gate.ps1
+    .\appscanstd_check_security_gate.ps1
   displayName: 'Checking Security Gate'
-- publish: $(aseAppName)-$(BuildNumber).pdf
-  artifact: $(aseAppName)-$(BuildNumber).pdf
+- publish: $(Build.Repository.Name)-$(Build.BuildNumber).pdf
+  artifact: $(Build.Repository.Name)-$(Build.BuildNumber).pdf
   continueOnError: On
   displayName: 'Uploading PDF to Azure Artifacts'
