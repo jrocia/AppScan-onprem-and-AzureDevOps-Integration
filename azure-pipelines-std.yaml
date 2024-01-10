@@ -5,8 +5,8 @@ variables:
   reportPDFFile: $(System.DefaultWorkingDirectory)\$(Build.Repository.Name)-$(Build.BuildNumber).pdf
   loginDastConfig: $(System.DefaultWorkingDirectory)\dast.login
   manualExploreDastConfig: $(System.DefaultWorkingDirectory)\manualexplore.exd
-  sevSecGw: highIssues
-  maxIssuesAllowed: 1000
+  sevSecGw: criticalIssues
+  maxIssuesAllowed: 0
 
 trigger: none
 
